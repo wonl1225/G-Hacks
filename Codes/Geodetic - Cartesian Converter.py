@@ -45,3 +45,30 @@ def G_to_C (lat_degree, long_degree, h):
     z = ((1-esq)*N+h)*np.sin(lat)
 
     return x, y, z
+
+print("1. Cartesian(x, y, z) -> Geodetic(latitude, longitude, height)")
+print("2. Geodetic(latitude, longitude, height) -> Cartesian(x, y, z)")
+user_choice = input("Enter an option: 1 or 2 ->")
+
+if user_choice == '1':
+    x = float(input("Enter X (m): "))
+    y = float(input("Enter Y (m): "))
+    z = float(input("Enter Z (m): "))
+    lat, lon, alt = C_to_G(x, y, z)
+    print(f"\nCartesian -> Geodetic:")
+    print(f"Latitude:  {lat}°")
+    print(f"Longitude: {lon}°")
+    print(f"Height:    {alt}m")
+
+elif user_choice == '2':
+    lat = float(input("Enter Latitude (degrees): "))
+    lon = float(input("Enter Longitude (degrees): "))
+    h = float(input("Enter Height (meters): "))
+    x, y, z = G_to_C(lat, lon, h)
+    print(f"\nGeodetic -> Cartesian:")
+    print(f"X: {x} m")
+    print(f"Y: {y} m")
+    print(f"Z: {z} m")
+
+else:
+    print("The only options are 1 or 2. Please restart the program")
