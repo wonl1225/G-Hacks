@@ -9,12 +9,12 @@ def C_to_G (x, y, z, accuracy = 1e-20):
 
     # Compute preliminary values
     p = np.sqrt(x**2 + y**2)
-    phi = np.artan(z/((1- esq)*p))
+    phi = np.arctan(z/((1- esq)*p))
     h = 0
 
     # Iterate to compute latitude and height
-    not_accurate = 1
-    while not_accurate < accuracy:
+    not_accurate = 1.0
+    while not_accurate > accuracy:
         # rphi represents the replaced phi value in the loop
         rphi = phi
 
@@ -26,7 +26,7 @@ def C_to_G (x, y, z, accuracy = 1e-20):
 
         # Phii calculation
         placeholder = 1-esq*(N/(N+h))
-        phii = np.arctan(z/placeholder*p)
+        phi = np.arctan(z/(placeholder*p))
 
         dphi = abs(rphi-phi)
     return np.degrees(dphi), np.degrees(long), h
@@ -37,7 +37,7 @@ def G_to_C (lat_degree, long_degree, h):
     long = np.radians(long_degree)
 
     # Calculate N
-    N = a/np.sqrt(1-esq*2*(np.sin(lat))**2)
+    N = a/np.sqrt(1-esq*(np.sin(lat))**2)
     
     # Calculate x, y, z
     x = (N+h)*np.cos(lat)*np.cos(long)
@@ -46,10 +46,13 @@ def G_to_C (lat_degree, long_degree, h):
 
     return x, y, z
 
+# obtain user inputs and execute functions
+print("MENU")
 print("1. Cartesian(x, y, z) -> Geodetic(latitude, longitude, height)")
 print("2. Geodetic(latitude, longitude, height) -> Cartesian(x, y, z)")
 user_choice = input("Enter an option: 1 or 2 ->")
 
+# Case where user wants to convert cartesian to geodetic
 if user_choice == '1':
     x = float(input("Enter X (m): "))
     y = float(input("Enter Y (m): "))
@@ -60,6 +63,7 @@ if user_choice == '1':
     print(f"Longitude: {lon}°")
     print(f"Height:    {alt}m")
 
+# Case where user wants to convert geodetic to cartesian
 elif user_choice == '2':
     lat = float(input("Enter Latitude (degrees): "))
     lon = float(input("Enter Longitude (degrees): "))
@@ -70,5 +74,6 @@ elif user_choice == '2':
     print(f"Y: {y} m")
     print(f"Z: {z} m")
 
+# Case where the user input is invalid
 else:
-    print("The only options are 1 or 2. Please restart the program")
+    print("Invalid input! The only options are 1 or 2. Please restart the program")
