@@ -3,22 +3,25 @@ from matplotlib import pyplot as plt
 import math
 
 def parse_pos(line):
-
     
-    ''' EXPECTED OUTPUT
+    ''' EXPECTED OUTPUT -------- THIS DOESN'T HAVE THE HEADER INCLUDED
         SOL_COMPUTED,SINGLE,37.421999999,-122.084057500,15.4320,
         0.0123,0.0108,0.0214,
         ,"GPS",18,18,18,18,0,01,0,0*4f1c3a2b
     '''
 
-
     data_list = []
 
-    data_list = line.split(',')
+    important_list = []
 
-    lat = float(data_list[2])
-    lon = float(data_list[3])
-    hei = float(data_list[4])
+    data_list = line.split(';')
+
+    important_list = data_list[1].split(',')
+
+
+    lat = float(important_list[2])
+    lon = float(important_list[3])
+    hei = float(important_list[4])
 
     return (lat, lon, hei)
 
