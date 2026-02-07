@@ -5,11 +5,11 @@ def triangle_thing(theta, c):
     # convert degrees to radians
     theta_rad = math.radians(theta)
 
-    N = c * math.cos(theta_rad)
-    E = c * math.sin(theta_rad)
+    E = c * math.cos(theta_rad)
+    N = c * math.sin(theta_rad)
 
     return N, E
 
 
-x, y = triangle_thing(36.87, 5)
-print(f"{x} haha {y}")
+n, e = triangle_thing(153.371958, 128.5967)
+print(f"the delta North is: {e} and the delta East is : {n}")
