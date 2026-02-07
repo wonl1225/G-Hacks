@@ -12,4 +12,4 @@ def triangle_thing(theta, c):
 
 
 n, e = triangle_thing(153.371958, 128.5967)
-print(f"the delta North is: {e} and the delta East is : {n}")
+print(f"delta North:{e} delta East:{n}")
