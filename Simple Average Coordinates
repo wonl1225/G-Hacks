@@ -4,10 +4,11 @@ import math
 
 def parse_pos(line):
     
-    ''' EXPECTED OUTPUT -------- THIS DOESN'T HAVE THE HEADER INCLUDED
-        SOL_COMPUTED,SINGLE,37.421999999,-122.084057500,15.4320,
-        0.0123,0.0108,0.0214,
-        ,"GPS",18,18,18,18,0,01,0,0*4f1c3a2b
+    ''' EXPECTED OUTPUT -------- WITH HEADER TYPE: "LOG BESTPOSA"
+        #BESTPOSA,USB1,0,58.5,FINESTEERING,2209,502061.000,02000020,cdba,
+        16809;SOL_COMPUTED,PPP,51.15043706870,-114.03067882331,1097.3462,
+        -17.0001,WGS84,0.0154,0.0139,0.0288,"TSTR",11.000,0.000,43,39,39,
+        38,00,00,7f,37*52483ac5
     '''
 
     data_list = []
@@ -31,16 +32,33 @@ def simple_ave(lat, lon, hei):
     mean_hei = np.mean(hei)
 
     print(mean_lat, mean_lon, mean_hei)
+
+def file_reader(directory):
+
+    file_entries = []
+
+    with open(directory, 'r') as file:
+        for line in file:
+            stripped_line = line.strip()
+            file_entries.append(stripped_line)
+    
+    return file_entries
     
 
-
 def main():
+
+    file_path = input('INPUT FILE PATH TO LOGS: ')
+
+    data_lines = file_reader(file_path)
 
     lat_list = []
     lon_list = []
     hei_list = []
 
+    '''
+
     while True:
+        
         new_string = input("Insert ASCII STRING HERE:\n")
 
         if new_string == 'END':
@@ -51,6 +69,17 @@ def main():
         lat_list.append(lat)
         lon_list.append(lon)
         hei_list.append(hei)
+
+    '''
+
+    for i in data_lines:
+
+        lat, lon, hei = parse_pos(i)
+
+        lat_list.append(lat)
+        lon_list.append(lon)
+        hei_list.append(hei)
+
 
     np_lat = np.array(lat_list)
     np_lon = np.array(lon_list)
