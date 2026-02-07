@@ -57,9 +57,9 @@ def file_reader(directory):
 
 def main():
 
-    # file_path = input('INPUT FILE PATH TO LOGS: ')
+    file_path = input('INPUT FILE PATH TO LOGS: ')
 
-    # data_lines = file_reader(file_path)
+    data_lines = file_reader(file_path)
 
     lat_list = []
     lon_list = []
@@ -70,35 +70,35 @@ def main():
     hei_dev_list = []
     
 
-    while True:
+    # while True:
         
-        new_string = input("Insert ASCII STRING HERE:\n")
+    #     new_string = input("Insert ASCII STRING HERE:\n")
 
-        if new_string == 'END':
-            break
+    #     if new_string == 'END':
+    #         break
 
-        lat, lon, hei, lat_dev, lon_dev, hei_dev = parse_pos(new_string)
-
-        lat_list.append(lat)
-        lon_list.append(lon)
-        hei_list.append(hei)
-        lat_dev_list.append(lat_dev)
-        lon_dev_list.append(lon_dev)
-        hei_dev_list.append(hei_dev)
-
-    
-
-    # for i in data_lines:
-
-    #     lat, lon, hei, lat_dev, lon_dev, hei_dev = parse_pos(i)
+    #     lat, lon, hei, lat_dev, lon_dev, hei_dev = parse_pos(new_string)
 
     #     lat_list.append(lat)
     #     lon_list.append(lon)
     #     hei_list.append(hei)
-
     #     lat_dev_list.append(lat_dev)
     #     lon_dev_list.append(lon_dev)
     #     hei_dev_list.append(hei_dev)
+
+    
+
+    for i in data_lines:
+
+        lat, lon, hei, lat_dev, lon_dev, hei_dev = parse_pos(i)
+
+        lat_list.append(lat)
+        lon_list.append(lon)
+        hei_list.append(hei)
+
+        lat_dev_list.append(lat_dev)
+        lon_dev_list.append(lon_dev)
+        hei_dev_list.append(hei_dev)
 
 
     np_lat = np.array(lat_list)
@@ -108,8 +108,6 @@ def main():
     np_lat_dev = np.array(lat_dev_list)
     np_lon_dev = np.array(lon_dev_list)
     np_hei_dev = np.array(hei_dev_list)
-
-    print(np_lat, np_lon, np_hei)
 
     weighted_ave(np_lat, np_lon, np_hei, np_lat_dev, np_lon_dev, np_hei_dev)
 
