@@ -1,7 +1,60 @@
 import numpy as np
 from matplotlib import pyplot as plt
+import math
+
+def parse_pos(line):
+
+    
+    ''' EXPECTED OUTPUT
+        SOL_COMPUTED,SINGLE,37.421999999,-122.084057500,15.4320,
+        0.0123,0.0108,0.0214,
+        ,"GPS",18,18,18,18,0,01,0,0*4f1c3a2b
+    '''
+
+
+    data_list = []
+
+    data_list = line.split(',')
+
+    lat = float(data_list[2])
+    lon = float(data_list[3])
+    hei = float(data_list[4])
+
+    return (lat, lon, hei)
+
+def simple_ave(lat, lon, hei):
+    mean_lat = np.mean(lat)
+    mean_lon = np.mean(lon)
+    mean_hei = np.mean(hei)
+
+    print(mean_lat, mean_lon, mean_hei)
+    
+
 
 def main():
-    print("hi")
+
+    lat_list = []
+    lon_list = []
+    hei_list = []
+
+    while True:
+        new_string = input("Insert ASCII STRING HERE:\n")
+
+        if new_string == 'END':
+            break
+
+        lat, lon, hei = parse_pos(new_string)
+
+        lat_list.append(lat)
+        lon_list.append(lon)
+        hei_list.append(hei)
+
+    np_lat = np.array(lat_list)
+    np_lon = np.array(lon_list)
+    np_hei = np.array(hei_list)
+
+    print(np_lat, np_lon, np_hei)
+
+    simple_ave(np_lat, np_lon, np_hei)
 
 main()
