@@ -24,14 +24,24 @@ def parse_pos(line):
     lon = float(important_list[3])
     hei = float(important_list[4])
 
-    return (lat, lon, hei)
+    lat_dev = float(important_list[7])
+    lon_dev = float(important_list[8])
+    hei_dev = float(important_list[9])
 
-def simple_ave(lat, lon, hei):
-    mean_lat = np.mean(lat)
-    mean_lon = np.mean(lon)
-    mean_hei = np.mean(hei)
+    return (lat, lon, hei, lat_dev, lon_dev, hei_dev)
 
-    print(mean_lat, mean_lon, mean_hei)
+def weighted_ave (lat, lon, hei, lat_dev, lon_dev, hei_dev):
+
+    weights_lat = 1 / (lat_dev**2)
+    weights_lon = 1 / (lon_dev**2)
+    weights_hei = 1 / (hei_dev**2)
+
+
+    weight_lat = np.average(lat, weights=weights_lat)
+    weight_lon = np.average(lon, weights=weights_lon)
+    weight_hei = np.average(hei, weights=weights_hei)
+
+    print(weight_lat, weight_lon, weight_hei)
 
 def file_reader(directory):
 
@@ -47,15 +57,18 @@ def file_reader(directory):
 
 def main():
 
-    file_path = input('INPUT FILE PATH TO LOGS: ')
+    # file_path = input('INPUT FILE PATH TO LOGS: ')
 
-    data_lines = file_reader(file_path)
+    # data_lines = file_reader(file_path)
 
     lat_list = []
     lon_list = []
     hei_list = []
 
-    '''
+    lat_dev_list = []
+    lon_dev_list = []
+    hei_dev_list = []
+    
 
     while True:
         
@@ -64,29 +77,40 @@ def main():
         if new_string == 'END':
             break
 
-        lat, lon, hei = parse_pos(new_string)
+        lat, lon, hei, lat_dev, lon_dev, hei_dev = parse_pos(new_string)
 
         lat_list.append(lat)
         lon_list.append(lon)
         hei_list.append(hei)
+        lat_dev_list.append(lat_dev)
+        lon_dev_list.append(lon_dev)
+        hei_dev_list.append(hei_dev)
 
-    '''
+    
 
-    for i in data_lines:
+    # for i in data_lines:
 
-        lat, lon, hei = parse_pos(i)
+    #     lat, lon, hei, lat_dev, lon_dev, hei_dev = parse_pos(i)
 
-        lat_list.append(lat)
-        lon_list.append(lon)
-        hei_list.append(hei)
+    #     lat_list.append(lat)
+    #     lon_list.append(lon)
+    #     hei_list.append(hei)
+
+    #     lat_dev_list.append(lat_dev)
+    #     lon_dev_list.append(lon_dev)
+    #     hei_dev_list.append(hei_dev)
 
 
     np_lat = np.array(lat_list)
     np_lon = np.array(lon_list)
     np_hei = np.array(hei_list)
 
+    np_lat_dev = np.array(lat_dev_list)
+    np_lon_dev = np.array(lon_dev_list)
+    np_hei_dev = np.array(hei_dev_list)
+
     print(np_lat, np_lon, np_hei)
 
-    simple_ave(np_lat, np_lon, np_hei)
+    weighted_ave(np_lat, np_lon, np_hei, np_lat_dev, np_lon_dev, np_hei_dev)
 
 main()
