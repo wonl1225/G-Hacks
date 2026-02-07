@@ -46,10 +46,13 @@ def G_to_C (lat_degree, long_degree, h):
 
     return x, y, z
 
+# obtain user inputs and execute functions
+print("MENU")
 print("1. Cartesian(x, y, z) -> Geodetic(latitude, longitude, height)")
 print("2. Geodetic(latitude, longitude, height) -> Cartesian(x, y, z)")
 user_choice = input("Enter an option: 1 or 2 ->")
 
+# Case where user wants to convert cartesian to geodetic
 if user_choice == '1':
     x = float(input("Enter X (m): "))
     y = float(input("Enter Y (m): "))
@@ -60,6 +63,7 @@ if user_choice == '1':
     print(f"Longitude: {lon}°")
     print(f"Height:    {alt}m")
 
+# Case where user wants to convert geodetic to cartesian
 elif user_choice == '2':
     lat = float(input("Enter Latitude (degrees): "))
     lon = float(input("Enter Longitude (degrees): "))
@@ -70,5 +74,6 @@ elif user_choice == '2':
     print(f"Y: {y} m")
     print(f"Z: {z} m")
 
+# Case where the user input is invalid
 else:
-    print("The only options are 1 or 2. Please restart the program")
+    print("Invalid input! The only options are 1 or 2. Please restart the program")
