@@ -1,0 +1,18 @@
+import numpy as np
+import math as math
+
+rx = math.radians(-25.91467 - 0.06667*(29))
+ry = math.radians(-9.42645 + 0.75744*(29))
+rz = math.radians(-11.59935 + 0.05133*(29))
+
+translation_array = np.array([[0.99503+0.00079*(29)],[-1.90141-0.0006*(29)],[-0.52285-0.00144*(29)]])
+
+multiplier = 1 + ((1.30504* 1e-9) + (-0.072* 1e-9))
+
+rotation_matrix = np.array([[1, -rz, ry],[rz, 1, -rx],[-ry, rx, 1]])
+
+starting_array = np.array([[-1641894.2117584937],[-3664915.841055974],[4939937.420870818]])
+
+output_array = translation_array + multiplier*(np.matmul(rotation_matrix,starting_array))
+
+print(output_array)

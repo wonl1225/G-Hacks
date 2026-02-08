@@ -20,6 +20,6 @@ array1 = np.array([[x],[y],[z]])
 array2 = np.array([[-sphi*clam, -sphi*slam, cphi],[-slam,clam, 0],[cphi*clam,cphi*slam,sphi]])
 array3 = np.transpose(array2)
 
-FINAL = np.matmul(array3, array1)
+final = np.matmul(array3, array1)
 
-print(FINAL)
+print(final)
