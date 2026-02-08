@@ -4,9 +4,9 @@ import math as math
 p = float(input('LATITUDE'))
 l = float(input('LONGITUDE'))
 
-x = float(input('X'))
-y = float(input('Y'))
-z = float(input('Z'))
+x = float(input('E'))
+y = float(input('N'))
+z = float(input('U'))
 
 lat  = math.radians(p)
 lon = math.radians(l)
