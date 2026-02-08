@@ -21,7 +21,7 @@ ax.plot(pts[:,0], pts[:,1], pts[:,2], linewidth=1, marker='o', markerfacecolor='
 
 offsets = [
 
-    (-7, -10, 0),  # Point 1: Move left and back
+    (-10, -10, 0),  # Point 1: Move left and back
 
     (20, 20, 10),   # Point 2: Move right and up
 
